@@ -1,0 +1,6 @@
+﻿streamlit
+SQLAlchemy
+pandas
+openpyxl
+pytest
+python-dateutil
