@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import Boolean, DateTime, Integer, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database.base import Base
 
@@ -35,3 +35,7 @@ class Professor(Base):
         default=datetime.now,
         onupdate=datetime.now,
     )
+    projects: Mapped[list["Project"]] = relationship(
+        "Project", back_populates="professor"
+    )
+    
