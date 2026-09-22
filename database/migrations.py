@@ -5,7 +5,7 @@ from database.connection import create_session_factory
 from database.schema import create_all_tables
 from models.schema_version import SchemaVersion
 
-CURRENT_SCHEMA_VERSION = 1
+CURRENT_SCHEMA_VERSION = 2
 
 
 def run_migrations(engine: Engine) -> int:
@@ -18,6 +18,10 @@ def run_migrations(engine: Engine) -> int:
         )
 
         if latest_version is None:
+            session.add(SchemaVersion(version=CURRENT_SCHEMA_VERSION))
+            return CURRENT_SCHEMA_VERSION
+
+        if latest_version < CURRENT_SCHEMA_VERSION:
             session.add(SchemaVersion(version=CURRENT_SCHEMA_VERSION))
             return CURRENT_SCHEMA_VERSION
 
